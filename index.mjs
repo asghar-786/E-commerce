@@ -1,24 +1,17 @@
-import express, { request, response } from 'express'
-const app=express();
-const PORT=5000
+// server.js or index.js (entry point for your server)
 
-app.get('/',async(request,response)=>{
-    const result={
-        code:200,
-        status:"ok",
-        message:"Express Server Is Running"
-    }
-    response.send(result)
-})
+import express from 'express';
 
-const startServer=async()=>{
-    try{
-        app.listen(PORT,()=>{
-            console.log(`Server is running on port ${PORT}`)
-        })
-    }catch(error){
-        throw error
-    }
-}
+const app = express();
+const PORT = process.env.PORT || 5000;
 
-startServer()
+app.get('/', async (request, response) => {
+    const result = {
+        code: 200,
+        status: "ok",
+        message: "Express Server Is Running"
+    };
+    response.send(result);
+});
+
+export default app; // Export your Express app instance

@@ -1,4 +1,6 @@
 import express from 'express'
+import cros from 'cors'
+
 const app=express();
 const PORT=5000
 
@@ -6,9 +8,8 @@ app.use(express.json());
 import  dotenv from 'dotenv';
 dotenv.config();
 import dataSource from './infrastructure/postgres.mjs';
-import  path from 'path';
-
 import clientRoute from './routes/clientRoute.mjs'
+app.use(cros())
 
 app.get('/',async(request,response)=>{
     const result={

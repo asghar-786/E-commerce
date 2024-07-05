@@ -1,40 +1,37 @@
-import express from 'express'
-import cros from 'cors'
-
-const app=express();
-const PORT=5000
+import express from 'express';
+const app = express();
+const PORT = 5000;
 
 app.use(express.json());
-import  dotenv from 'dotenv';
+import dotenv from 'dotenv';
 dotenv.config();
 import dataSource from './infrastructure/postgres.mjs';
-import clientRoute from './routes/clientRoute.mjs'
-app.use(cros())
 
-app.get('/',async(request,response)=>{
-    const result={
-        code:200,
-        status:"ok",
-        message:"Express Server Is Running"
-    }
-    response.send(result)
-})
+import clientRoute from './routes/clientRoute.mjs';
 
-clientRoute(app);
+app.get('/', async (request, response) => {
+  const result = {
+    code: 200,
+    status: "ok",
+    message: "Express Server Is Running"
+  };
+  response.send(result);
+});
 
-const startServer=async()=>{
-    try {
-        await dataSource.initialize();
-        console.log("Database connection has been established");
-        
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
-        });
-    } catch (error) {
-        console.error("Error during server start:", error);
-        process.exit(1);
-    }
-}
+app.use('/client', clientRoute);
 
+const startServer = async () => {
+  try {
+    await dataSource.initialize();
+    console.log("Database connection has been established");
+
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Error during server start:", error);
+    process.exit(1);
+  }
+};
 
 export default startServer

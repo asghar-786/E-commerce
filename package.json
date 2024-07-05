@@ -1,9 +1,9 @@
 {
   "name": "e-commerce",
   "version": "1.0.0",
-  "main": "server.mjs",
+  "main": "index.mjs",
   "scripts": {
-    "start": "nodemon server.mjs"
+    "start": "nodemon index.mjs"
   },
   "keywords": [],
   "author": "",
